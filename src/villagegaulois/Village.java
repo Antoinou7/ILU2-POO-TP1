@@ -55,7 +55,7 @@ public class Village {
 	private Etal[] trouverEtals(String produit) {
 		int cpt = 0;
 		for(int i=0;i<etals.length;i++) {
-			if (etals[i].isEtalOccupe()) {
+			if (etals[i] != null && etals[i].isEtalOccupe() && etals[i].contientProduit(produit)) {
 				cpt++;
 			}
 			}
@@ -69,7 +69,7 @@ public class Village {
 
 		
 		for(int j=0;j<etals.length;j++) {
-			if(etals[j].contientProduit(produit)) {
+			if(etals[j] != null && etals[j].isEtalOccupe() && etals[j].contientProduit(produit)) {
 				etaloccupe[cpt2]=etals[j];
 				cpt2++;
 				
@@ -91,9 +91,19 @@ public class Village {
 	
 	
 	private void afficherMarche() {
-	
-	
-		
+		int nbEtalsvide = 0;
+		for(int i=0;i<etals.length;i++) {
+			if (etals[i].isEtalOccupe()) {
+				etals[i].afficherEtal();
+				}
+			else {
+				nbEtalsvide++;
+			}
+			}
+		if (trouverEtalLibre() != -1) {
+			System.out.println("Il reste " + nbEtalsvide + " étals non utilisés dans le marché. \n");
+	}
+	}
 	}
 
 	public String getNom() {
